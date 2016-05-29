@@ -1,0 +1,30 @@
+I'm adding three files: 
+- mysqli_connect.php
+- insert.php
+- addrow.php
+
+the first two are important. the mysqli_connect.php file must be located in the same directory as the parent directory of our php files. I 
+have mine placed in the root of my Sites folder. It'll create the connection to the correct database. Any other php file attempting to 
+access the database can also use this in the beginning of the code. Then also in Sites, I have a folder called cs183. Inside cs183, I 
+have the other php files. Addrow is just a page where you can insert a row. I just made it so I can insert rows into the table by typing
+just typing them. Input must match the same format as the ps output. Any white space separation is accepted. insert.php will parse the
+string given and store it in the database. It'll call errors depending on what happened.
+
+THE DATABASE AND TABLE MUST MATCH THE FOLLOWING OR THE CODE WON'T WORK!
+
+database name: cs183
+table name: info
+rows:
+  user (not unique)
+  pid (primary key)
+  cpu
+  mem
+  vsz
+  rss
+  tt
+  stat
+  started
+  time
+  command
+  timestamp (this must be type timestamp)
+  
