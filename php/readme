@@ -3,7 +3,19 @@ I'm adding three files:
 - insert.php
 - addrow.php
 
-the first two are important. the mysqli_connect.php file must be located in the same directory as the parent directory of our php files. I 
+MAKE SURE YOUR ACCOUNT HAS PRIVILEGES!
+run mysql as root in the terminal so that the shell opens and the prompt is "mysql > "
+
+$mysql -u root -p
+
+to give yourseld privileges, use the following commands. make sure you first create a database with phpmyadmin called cs183!
+
+mysql > GRANT SELECT, INSERT, DELETE, UPDATE ON cs183.*
+      -> TO 'username@localhost'
+      -> IDENTIFIED BY 'password';
+mysql > quit
+
+the first file two are important. the mysqli_connect.php file must be located in the same directory as the parent directory of our php files. I 
 have mine placed in the root of my Sites folder. It'll create the connection to the correct database. Any other php file attempting to 
 access the database can also use this in the beginning of the code. Then also in Sites, I have a folder called cs183. Inside cs183, I 
 have the other php files. Addrow is just a page where you can insert a row. I just made it so I can insert rows into the table by typing
