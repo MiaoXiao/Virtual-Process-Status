@@ -8,15 +8,17 @@
 	exec('/usr/bin/perl ./grabline.pl', $result);
 	$size = sizeof($result);
 	
-	for($i = 0; $i < $size; $i++){
+	foreach($result as $res) {
+	//for($i = 0; $i < $size; $i++){
+		echo $result[$i];
 		$data_missing = array();
 		$corrected = array();
 
-		if(empty($result[i])){
+		if(empty($res){
 			$data_missing[] = 'ps info';
 		}
 		else{
-			$row = trim($result[i]);
+			$row = trim($res);
 			$pieces = explode(" ", $row);
 			foreach ($pieces as $piece){
 				$piece = preg_replace('/\s+/', '', $piece);
@@ -66,7 +68,7 @@
 
 		if(empty($data_missing)){
 
-			require_once('../mysqli_connect.php');
+			require_once('./mysqli_connect.php');
 			//echo "$row<br />";
 			//$now = time();
 			$query = "insert into info (user, pid, cpu, mem, vsz, rss,
