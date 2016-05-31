@@ -5,17 +5,18 @@
 <body>
 
 <?php
-
-	if(isset($_POST['submit'])){
-
+	exec('/usr/bin/perl ./grabline.pl', $result);
+	$size = sizeof($result);
+	
+	for($i = 0; $i < $size; $i++){
 		$data_missing = array();
 		$corrected = array();
 
-		if(empty($_POST['ps_info'])){
+		if(empty($result[i])){
 			$data_missing[] = 'ps info';
 		}
 		else{
-			$row = trim($_POST['ps_info']);
+			$row = trim($result[i]);
 			$pieces = explode(" ", $row);
 			foreach ($pieces as $piece){
 				$piece = preg_replace('/\s+/', '', $piece);
@@ -109,9 +110,6 @@
 			echo 'Incorrect format of input<br />';
 
 		}
-	}
-	else{
-		echo 'Nothing to Insert<br />';
 	}
 
 ?>
