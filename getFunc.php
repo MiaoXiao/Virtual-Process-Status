@@ -41,7 +41,7 @@ function getFunc($column, $userquery)
         //echo $row['pid']."<br>";
     }
 
-	echo $output;
+	return $output;
 }
 
 ?>
