@@ -5,6 +5,7 @@ function loadCharts()
 	google.charts.load('current', {'packages':['corechart']});
 }
 
+
 //Displays Pie Chart
 function displayPieChart(cata, user)
 {
@@ -36,10 +37,51 @@ function displayPieChart(cata, user)
 
 	//var string1 = <?php echo "1 2 3 4" ?>;
 	//var string2 = <?php echo "5 6 7 8" ?>;
-	var pid = '3 33 333 3333';
-	var catagory = '5 6 7 8';
-	var command = `test test test test`;
-	var user = `rica alyza jon eliza`;
+	var pid;// = "3 33 333 3333";
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("GET", "getFunc.php?column=pid", false);
+    xmlhttp.send(null);
+    
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+       		//console.log(xmlhttp.responseText);
+            pid = (xmlhttp.responseText);
+            console.log(pid);
+        }
+    
+	var catagory;
+	xmlhttp.open("GET", "getFunc.php?column=" + cata, false);
+    xmlhttp.send(null);
+    
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+       		//console.log(xmlhttp.responseText);
+            catagory = xmlhttp.response;
+            console.log(catagory);
+        }
+
+	var command;
+ 	xmlhttp.open("GET", "getFunc.php?column=command", false);
+    xmlhttp.send(null);
+    
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+       		//console.log(xmlhttp.responseText);
+            command = xmlhttp.response;
+            console.log(command);
+        }
+
+	var user;
+	xmlhttp.open("GET", "getFunc.php?column=user", false);
+    xmlhttp.send(null);
+    
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+       		//console.log(xmlhttp.responseText);
+            user = xmlhttp.response;
+            console.log(user);
+        }
+/*
+	var pid = "<?php echo getFunc('pid','nouser') ?>";
+	var catagory = "<?php echo getFunc(cata,'nouser') ?>";
+	var command = "<?php echo getFunc('command','nouser') ?>";
+	var user = "<?php echo getFunc('user','nouser') ?>";*/
 	
 	var arr1 = toArray(pid);
 	var arr2 = toArray(catagory);
@@ -49,7 +91,7 @@ function displayPieChart(cata, user)
 	//console.log(arr2);
 	var arg = [];
 	for(var i = 0; i < arr1.length; i++){
-		arg.push(["PID: " + arr1[i] + " " + arr3[i] + " " + arr4[i], parseInt(arr2[i])]);
+		arg.push(["PID: " + arr1[i] + " " + arr3[i] + " " + arr4[i], parseFloat(arr2[i])]);
 	}
 	data.addRows(arg);
 	//console.log(arg);
@@ -63,3 +105,10 @@ function displayPieChart(cata, user)
 	chart.draw(data, options);
 	}
 }
+
+function onLoad(cata,user)
+{
+    loadCharts();
+    displayPieChart(cata,user);
+}
+
