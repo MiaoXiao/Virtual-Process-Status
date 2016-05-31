@@ -1,6 +1,6 @@
 #!/usr/bin/perl 
 
-$info =`ps u`;
+$info =`ps aux`;
 @lines=split('\n', $info);
 $line=$ARGV[0];
 
