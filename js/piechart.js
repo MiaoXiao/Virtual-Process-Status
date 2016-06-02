@@ -1,11 +1,9 @@
 //Global variable for whichj user or timestamp to select from
-var CURRENT_USER = "all";
+var CURRENT_USER = "All Users";
 var LIST_USER = [];
-var EVENTLISTENERS_USER = [];
 
-var CURRENT_TIMESTAMP = "recent";
+var CURRENT_TIMESTAMP = "Most Recent";
 var LIST_TIMESTAMP = [];
-var EVENTLISTENERS_TIMESTAMP = [];
 
 //Remove all event listeners from this id
 function removeEventListeners(id)
@@ -13,6 +11,18 @@ function removeEventListeners(id)
 	var el = document.getElementById(id);
     var elClone = el.cloneNode(true);
 	el.parentNode.replaceChild(elClone, el);
+}
+
+// Convert string to array
+function stringToArray(arr)
+{
+	arr = arr.split(" ");
+	var stringArr = new Array();
+
+	for (var i = 0; i < arr.length; i++) {
+		stringArr.push(arr[i]);
+	}
+	return stringArr;
 }
 
 //Process dropdown requests
@@ -32,11 +42,7 @@ function dropdownImplementListeners()
 		var currId = userDropdownElements[i].id;
 		console.log("id " + currId);
 		
-		document.getElementById(currId).addEventListener('click', function()
-		{
-			console.log("processing " + this.id);
-			return false;
-		}, false);
+		document.getElementById(currId).addEventListener('click', selectNewUser, false);
 	}
 	
 	//Loop through ids and generate onclick function for timestamp dropdown
@@ -45,11 +51,7 @@ function dropdownImplementListeners()
 		var currId = timestampDropdownElements[i].id;
 		console.log("id " + currId);
 		
-		document.getElementById(currId).addEventListener('click', function()
-		{
-			console.log("processing " + this.id);
-			return false;
-		}, false);
+		document.getElementById(currId).addEventListener('click', selectNewTimestamp, false);
 	}
 	
 }
@@ -57,25 +59,91 @@ function dropdownImplementListeners()
 //Loads all unique users in the 'sort by user' drop down
 function loadAllUsersinDropdown()
 {
+	//User drop down menu
+	var userDropdown = document.getElementById('userdropdown');
 	
+	//Remove all existing elements from user dropdown
+	while (userDropdown.firstChild)
+	{
+		userDropdown.removeChild(userDropdown.firstChild);
+	}
+	
+	//Grab all unique users from database and put in a string separated by spaces
+		//DO THIS ELIZA
+		
+	//Test
+	var uniqueUsers = "Rica Alyza Jon Natasha Eliza";
+	var userArr = stringToArray(uniqueUsers);
+	userArr.unshift("All Users");
+	
+	for (var i=0, max=userArr.length; i < max; i++)
+	{
+		//Create list element
+		var li = document.createElement("LI");
+			
+		//Create link element and add attributes and text node
+		var a = document.createElement("A");
+		a.setAttribute("id", userArr[i]);
+		a.setAttribute("href", "#");
+		var textnode = document.createTextNode(userArr[i]);
+		a.appendChild(textnode);   
+
+		//Append link element to list element
+		li.appendChild(a);
+		
+		userDropdown.appendChild(li);
+	}
 }
 
 //Loads all unique timestamps in the 'sort by timestamp' drop down
 function loadAllTimeStampsinDropdown()
 {
+	//User drop down menu
+	var timestampDropdown = document.getElementById('timestampdropdown');
 	
+	//Remove all existing elements from user dropdown
+	while (timestampDropdown.firstChild)
+	{
+		timestampDropdown.removeChild(timestampDropdown.firstChild);
+	}
+	
+	//Grab all unique timestamps from database and put in a string separated by spaces
+		//DO THIS ELIZA
+		
+	//Test
+	var uniqueTimestamps = "time1 time2 time3 time4 time5 time6 time7";
+	var timestampArr = stringToArray(uniqueTimestamps);
+	timestampArr.unshift("Most Recent");
+	
+	for (var i=0, max=timestampArr.length; i < max; i++)
+	{
+		//Create list element
+		var li = document.createElement("LI");
+			
+		//Create link element and add attributes and text node
+		var a = document.createElement("A");
+		a.setAttribute("id", timestampArr[i]);
+		a.setAttribute("href", "#");
+		var textnode = document.createTextNode(timestampArr[i]);
+		a.appendChild(textnode);   
+
+		//Append link element to list element
+		li.appendChild(a);
+		
+		timestampDropdown.appendChild(li);
+	}
 }
 
 //Selects new user by changing CURRENTUSER
 function selectNewUser()
 {
-	
+	console.log("processing " + this.id);
 }
 
 //Selects new timestamp by changing CURRENTTIMESTAMP
 function selectNewTimestamp()
 {
-	
+	console.log("processing " + this.id);
 }
 
 //Load charts
@@ -112,17 +180,6 @@ function displayPieChart(cata, user)
 	google.charts.setOnLoadCallback(drawChart);
 	function drawChart() 
 	{
-		// convert string to array
-		function toArray(arr)
-		{
-			arr = arr.split(" ");
-			var stringArr = new Array();
-
-			for (var i = 0; i < arr.length; i++) {
-				stringArr.push(arr[i]);
-			}
-			return stringArr;
-		}
 		var data = new google.visualization.DataTable();
 		data.addColumn('string', 'pid');
 		data.addColumn('number', cata);
@@ -181,10 +238,10 @@ function displayPieChart(cata, user)
 		var command = "chrome darksouls geany spotify";
 		var user = "rica alyza eliza jon";
 		
-		var pidArr = toArray(pid);
-		var cataArray = toArray(catagory);
-		var commandAray = toArray(command);
-		var userArray = toArray(user);
+		var pidArr = stringToArray(pid);
+		var cataArray = stringToArray(catagory);
+		var commandAray = stringToArray(command);
+		var userArray = stringToArray(user);
 
 		var arg = [];
 		for(var i = 0; i < pidArr.length; i++)
@@ -196,7 +253,7 @@ function displayPieChart(cata, user)
 		//Options for selected pie chart
 		var options = 
 		{
-			//None
+			//None for now
 		};
 
 		var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -207,6 +264,8 @@ function displayPieChart(cata, user)
 //On Page load function
 function onLoad(cata,user)
 {
+	loadAllUsersinDropdown();
+	loadAllTimeStampsinDropdown();
 	dropdownImplementListeners();
     loadCharts();
     displayPieChart(cata,user);
