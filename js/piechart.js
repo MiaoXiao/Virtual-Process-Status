@@ -1,3 +1,31 @@
+//Global variable for whichj user or timestamp to select from
+var CURRENTUSER = "all";
+var CURRENTTIMESTAMP = "recent";
+
+//Loads all unique users in the 'sort by user' drop down
+function loadAllUsersinDropdown()
+{
+	
+}
+
+//Loads all unique timestamps in the 'sort by timestamp' drop down
+function loadAllTimeStampsinDropdown()
+{
+	
+}
+
+//Selects new user by changing CURRENTUSER
+function selectNewUser()
+{
+	
+}
+
+//Selects new timestamp by changing CURRENTTIMESTAMP
+function selectNewTimestamp()
+{
+	
+}
+
 //Load charts
 function loadCharts()
 {

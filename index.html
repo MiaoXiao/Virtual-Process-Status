@@ -37,8 +37,10 @@
     <?php include('php/getFunc.php') ?>
 	
     <div id="wrapper">
+	
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -49,7 +51,23 @@
                 </button>
                 <a class="navbar-brand" href="index.html">Virtual Process Status</a>
             </div>
-            <!-- Top Menu Items -->
+            
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			    <ul class="nav navbar-nav">
+				<li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort by User <span class="caret"></span></a>
+				  <ul class="dropdown-menu">
+					<li><a id="all" href="#">All users</a></li>
+				  </ul>
+				</li>
+				<li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort by Time Stamp <span class="caret"></span></a>
+				  <ul class="dropdown-menu">
+					<li><a id="recent" href="#">Most Recent</a></li>
+				  </ul>
+				</li>
+			  </ul>
+			</div><!-- /.navbar-collapse -->
             
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -73,7 +91,7 @@
             </div>
         <!-- /.navbar-collapse -->
         </nav>
-
+		
         <div id="page-wrapper">
 
             <div class="container-fluid">
