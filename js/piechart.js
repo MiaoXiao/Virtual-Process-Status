@@ -1,4 +1,4 @@
-//Global variable for whichj user or timestamp to select from
+//Global variable for which user or timestamp to select from
 var CURRENT_USER = "All Users";
 var LIST_USER = [];
 
@@ -42,7 +42,7 @@ function dropdownImplementListeners()
 		var currId = userDropdownElements[i].id;
 		console.log("id " + currId);
 		
-		document.getElementById(currId).addEventListener('click', selectNewUser, false);
+		document.getElementById(currId).addEventListener('click', selectNewUsers, false);
 	}
 	
 	//Loop through ids and generate onclick function for timestamp dropdown
@@ -134,16 +134,37 @@ function loadAllTimeStampsinDropdown()
 	}
 }
 
-//Selects new user by changing CURRENTUSER
-function selectNewUser()
+//Visibly update selected element in dropdown
+function updateDropdownSelected(dropdown)
 {
-	console.log("processing " + this.id);
+	if (dropdown == "user")
+	{
+		document.getElementById("userselect").innerHTML = "Sort By " + CURRENTUSER + "<span class=\"caret\"></span>";
+	}
+	else if (dropdown == "time") 
+	{
+		document.getElementById('timeselect').innerHTML = "Sort By " + CURRENTTIMESTAMP + "<span class=\"caret\"></span>";
+	}
+	else
+	{
+		window.alert("Error: Invalid drop down selection");
+	}
 }
 
-//Selects new timestamp by changing CURRENTTIMESTAMP
+//Event for selecting new user by changing CURRENTUSER
+function selectNewUsers()
+{
+	console.log("processing " + this.id);
+	CURRENTUSER = this.id;
+	updateDropdownSelected("user");
+}
+
+//Event for selecting new user by changing CURRENTTIMESTAMP
 function selectNewTimestamp()
 {
 	console.log("processing " + this.id);
+	CURRENTTIMESTAMP = this.id;
+	updateDropdownSelected("time");
 }
 
 //Load charts
