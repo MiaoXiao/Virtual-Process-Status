@@ -1,6 +1,58 @@
 //Global variable for whichj user or timestamp to select from
-var CURRENTUSER = "all";
-var CURRENTTIMESTAMP = "recent";
+var CURRENT_USER = "all";
+var LIST_USER = [];
+var EVENTLISTENERS_USER = [];
+
+var CURRENT_TIMESTAMP = "recent";
+var LIST_TIMESTAMP = [];
+var EVENTLISTENERS_TIMESTAMP = [];
+
+//Remove all event listeners from this id
+function removeEventListeners(id)
+{
+	var el = document.getElementById(id);
+    var elClone = el.cloneNode(true);
+	el.parentNode.replaceChild(elClone, el);
+}
+
+//Process dropdown requests
+function dropdownImplementListeners()
+{
+	//Remove any existing event listeners
+	removeEventListeners('userdropdown');
+	removeEventListeners('timestampdropdown');
+	
+	//Get array of user drop down elements and timestamp drop down elements
+	var userDropdownElements = document.getElementById("userdropdown").getElementsByTagName("A");
+	var timestampDropdownElements = document.getElementById("timestampdropdown").getElementsByTagName("A");;
+	
+	//Loop through ids and generate onclick function for username dropdown
+	for (var i = 0, len = userDropdownElements.length; i < len; i++)
+	{
+		var currId = userDropdownElements[i].id;
+		console.log("id " + currId);
+		
+		document.getElementById(currId).addEventListener('click', function()
+		{
+			console.log("processing " + this.id);
+			return false;
+		}, false);
+	}
+	
+	//Loop through ids and generate onclick function for timestamp dropdown
+	for (var i = 0, len = timestampDropdownElements.length; i < len; i++)
+	{
+		var currId = timestampDropdownElements[i].id;
+		console.log("id " + currId);
+		
+		document.getElementById(currId).addEventListener('click', function()
+		{
+			console.log("processing " + this.id);
+			return false;
+		}, false);
+	}
+	
+}
 
 //Loads all unique users in the 'sort by user' drop down
 function loadAllUsersinDropdown()
@@ -38,7 +90,8 @@ function getChartData(cata, user)
 	xmlhttp.open("GET", "php/getFunc.php?column=" + cata, false);
 	xmlhttp.send(null);
 
-	if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+	if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+	{
 		return xmlhttp.response;
 		//console.log(user);
 	}
@@ -74,11 +127,12 @@ function displayPieChart(cata, user)
 		data.addColumn('string', 'pid');
 		data.addColumn('number', cata);
 		
+		/*
 		var pid = getChartData(cata, user);
 		var category = getChartData(cata, user);
 		var command = getChartData(cata, user);
 		var user = getChartData(cata, user);
-		
+		*/
 		/*
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.open("GET", "getFunc.php?column=pid", false);
@@ -121,13 +175,11 @@ function displayPieChart(cata, user)
 			}
 		*/
 		
-		/*
 		//TEST DATA
 		var pid = "1 2 3 4";
 		var catagory = "0.2 0.4 0.2 0.1";
 		var command = "chrome darksouls geany spotify";
 		var user = "rica alyza eliza jon";
-		*/
 		
 		var pidArr = toArray(pid);
 		var cataArray = toArray(catagory);
@@ -155,6 +207,7 @@ function displayPieChart(cata, user)
 //On Page load function
 function onLoad(cata,user)
 {
+	dropdownImplementListeners();
     loadCharts();
     displayPieChart(cata,user);
 }
