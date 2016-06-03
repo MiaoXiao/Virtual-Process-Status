@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-
+<head >
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,15 +28,24 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-	<script src="piechart.js"></script>
+    <script src="js/piechart.js" type="text/javascript"></script> 
+    <script type="text/javascript">
+		//dropDownHandler();
+    </script>
 </head>
 
+<!--First page to load-->
 <body onload="onLoad('cpu','nouser')">
-    <?php include('getFunc.php') ?>
-    <?php include('../insert.php') ?>
+
+
+	<!-- PHP includes -->
+    <?php include('php/getFunc.php') ?>
+	
     <div id="wrapper">
+	
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -48,60 +56,51 @@
                 </button>
                 <a class="navbar-brand" href="index.html">Virtual Process Status</a>
             </div>
-            <!-- Top Menu Items -->
+            
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			    <ul class="nav navbar-nav">
+				<li class="dropdown">
+				  <a id="userselect" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort by All Users <span class="caret"></span></a>
+				  <ul class="dropdown-menu" id="userdropdown">
+					
+					<!--<li><a id="Rica" href="#">All Users</a></li>-->
+
+				  </ul>
+				</li>
+				<li class="dropdown">
+				  <a id="timeselect" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort by Most Recent <span class="caret"></span></a>
+				  <ul class="dropdown-menu" id="timestampdropdown">
+					
+					<!--<li><a id="Rica" href="#">Most Recent</a></li>-->
+					
+				  </ul>
+				</li>
+			  </ul>
+			</div><!-- /.navbar-collapse -->
             
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li id="cpu" class="cata">
-                        <!-- <a href="index.html"><i class="fa fa-info-circle"></i> About</a> -->
 						<a onclick="displayPieChart('cpu', 1)"><i class="fa fa-fw fa-bar-chart-o"></i>CPU Usage</a>
                     </li>
                      <li id="mem">
-                        <!-- <a href="cpu.html"><i class="fa fa-fw fa-bar-chart-o"></i> CPU %</a> -->
 						<a onclick="displayPieChart('mem', 2)"><i class="fa fa-fw fa-bar-chart-o"></i>Memory Usage</a>
                     </li>
                     <li id="vsz">
-                        <!-- <a href="mem.html"><i class="fa fa-fw fa-bar-chart-o"></i> Memory %</a> -->
 						<a onclick="displayPieChart('vsz', 3)"><i class="fa fa-fw fa-bar-chart-o"></i>Virtual Memory Usage</a>
                     </li>
                     <li id="rss">
-                       <!--  <a href="virtual.html"><i class="fa fa-fw fa-bar-chart-o"></i> Virtual Memory Usage</a> -->
 					   <a onclick="displayPieChart('rss', 1)"><i class="fa fa-fw fa-bar-chart-o"></i>Real Memory Usage</a>
                     </li>
                     <li id="time">
-                        <!-- <a href="real.html"><i class="fa fa-fw fa-bar-chart-o"></i> Real Memory Usage</a> -->
 						<a onclick="displayPieChart('time', 1)"><i class="fa fa-fw fa-bar-chart-o"></i>Process Time Alive</a>
                     </li>
-                    <!-- <li>
-                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-                    </li>
-                    <li class="Dashboard">
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> About</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Choose a user <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
-                            <li>
-                                <a href="#">User1</a>
-                            </li>
-                            <li>
-                                <a href="#">User2</a>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <li>
-                        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
-                    </li>
-                    <li>
-                        <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
-                    </li> -->
                 </ul>
             </div>
-            <!-- /.navbar-collapse -->
+        <!-- /.navbar-collapse -->
         </nav>
-
+		
         <div id="page-wrapper">
 
             <div class="container-fluid">
@@ -111,21 +110,19 @@
                     <h1 id="title"></h1>
                 </div>
 
-               
-
               <body>
                 <div id="piechart" style="width: 900px; height: 500px;"></div>
               </body>
 
-                <!-- about -->
+                <!-- About -->
                 <div class="well">
-                    <p>A way to visualize the ps command. We do this by representing information relating to a process's CPU %, memory %, Virtual Memory Usage, Real Memory Usage, and Process Time alive in pie charts</p>
+                    <p>A way to visualize the ps command. We do this by representing information relating to a process's CPU %, memory %, Virtual Memory Usage, Real Memory Usage, and Process Time alive in pie charts.</p>
                 </div>
-                <!-- credits -->
+                <!-- Credits -->
                  <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Made by <br><small>Rica Feng, Eliza Alcaraz, Alyza Malunao, Jon Dominguez, Natasha Morando</small>
+                            Created by <br><small>Rica Feng, Eliza Alcaraz, Alyza Malunao, Jon Dominguez, Natasha Morando</small>
                         </h1>
                         
                     </div>
@@ -152,7 +149,9 @@
     <script src="js/plugins/morris/morris.min.js"></script>
     <script src="js/plugins/morris/morris-data.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script src="piechart.js" type="text/javascript"></script>
+	
+	<!-- Javascript includes -->
+	<!--<script src="js/piechart.js" type="text/javascript"></script>-->
 	
 </body>
 
