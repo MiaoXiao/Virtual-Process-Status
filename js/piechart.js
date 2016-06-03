@@ -67,12 +67,22 @@ function loadAllUsersinDropdown()
 	{
 		userDropdown.removeChild(userDropdown.firstChild);
 	}
-	
+
 	//Grab all unique users from database and put in a string separated by spaces
 		//DO THIS ELIZA
+	var uniqueUsers;
+	xmlhttp.open("GET", "php/getAllUnique.php?column=user", false);
+		xmlhttp.send(null);
+		
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				//console.log(xmlhttp.responseText);
+				uniqueUsers = (xmlhttp.responseText);
+				console.log(pid);
+			}
+
 		
 	//Test
-	var uniqueUsers = "Rica Alyza Jon Natasha Eliza";
+	uniqueUsers = "Rica Alyza Jon Natasha Eliza";
 	var userArr = stringToArray(uniqueUsers);
 	userArr.unshift("All Users");
 	
@@ -109,9 +119,19 @@ function loadAllTimeStampsinDropdown()
 	
 	//Grab all unique timestamps from database and put in a string separated by spaces
 		//DO THIS ELIZA
+	var uniqueTimestamps;
+	xmlhttp.open("GET", "php/getAllUnique.php?column=timestamp", false);
+		xmlhttp.send(null);
+		
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				//console.log(xmlhttp.responseText);
+				uniqueTimestamps = (xmlhttp.responseText);
+				console.log(pid);
+			}
+
 		
 	//Test
-	var uniqueTimestamps = "time1 time2 time3 time4 time5 time6 time7";
+	uniqueTimestamps = "time1 time2 time3 time4 time5 time6 time7";
 	var timestampArr = stringToArray(uniqueTimestamps);
 	timestampArr.unshift("Most Recent");
 	
