@@ -4,8 +4,8 @@
 	// It should be saved outside of the main web documents folder
 	// and imported when needed
 
-	DEFINE ('DB_USER', 'username');
-	DEFINE ('DB_PASSWORD', 'password');
+	DEFINE ('DB_USER', 'jondominguez');
+	DEFINE ('DB_PASSWORD', 'j0rdan23');
 	DEFINE ('DB_HOST', 'localhost');
 	DEFINE ('DB_NAME', 'cs183');
 	 
