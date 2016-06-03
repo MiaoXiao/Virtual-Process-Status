@@ -176,6 +176,8 @@ function loadCharts()
 //Synchronously grabs chart data from php file
 function getChartData(cata, user)
 {
+	var xmlhttp = new XMLHttpRequest();
+
 	xmlhttp.open("GET", "php/getFunc.php?column=" + cata, false);
 	xmlhttp.send(null);
 
@@ -205,15 +207,15 @@ function displayPieChart(cata, user)
 		data.addColumn('string', 'pid');
 		data.addColumn('number', cata);
 		
-		/*
-		var pid = getChartData(cata, user);
-		var category = getChartData(cata, user);
-		var command = getChartData(cata, user);
-		var user = getChartData(cata, user);
-		*/
-		/*
+		
+		//var pid = getChartData(cata, user);
+		//var category = getChartData(cata, user);
+		//var command = getChartData(cata, user);
+		//var user = getChartData(cata, user);
+		
+		
 		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.open("GET", "getFunc.php?column=pid", false);
+		xmlhttp.open("GET", "php/getFunc.php?column=pid", false);
 		xmlhttp.send(null);
 		
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -223,7 +225,7 @@ function displayPieChart(cata, user)
 			}
 		
 		var catagory;
-		xmlhttp.open("GET", "getFunc.php?column=" + cata, false);
+		xmlhttp.open("GET", "php/getFunc.php?column=" + cata, false);
 		xmlhttp.send(null);
 		
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -233,7 +235,7 @@ function displayPieChart(cata, user)
 			}
 
 		var command;
-		xmlhttp.open("GET", "getFunc.php?column=command", false);
+		xmlhttp.open("GET", "php/getFunc.php?column=command", false);
 		xmlhttp.send(null);
 		
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -243,7 +245,7 @@ function displayPieChart(cata, user)
 			}
 
 		var user;
-		xmlhttp.open("GET", "getFunc.php?column=user", false);
+		xmlhttp.open("GET", "php/getFunc.php?column=user", false);
 		xmlhttp.send(null);
 		
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -251,13 +253,13 @@ function displayPieChart(cata, user)
 				user = xmlhttp.response;
 				console.log(user);
 			}
-		*/
+		
 		
 		//TEST DATA
-		var pid = "1 2 3 4";
-		var catagory = "0.2 0.4 0.2 0.1";
-		var command = "chrome darksouls geany spotify";
-		var user = "rica alyza eliza jon";
+		//var pid = "1 2 3 4";
+		//var catagory = "0.2 0.4 0.2 0.1";
+		//var command = "chrome darksouls geany spotify";
+		//var user = "rica alyza eliza jon";
 		
 		var pidArr = stringToArray(pid);
 		var cataArray = stringToArray(catagory);
@@ -291,4 +293,3 @@ function onLoad(cata,user)
     loadCharts();
     displayPieChart(cata,user);
 }
-

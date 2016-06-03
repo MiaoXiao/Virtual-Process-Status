@@ -6,10 +6,10 @@ $column=$_GET["column"];
 $userquery="nouser";
 
 // sets up database, emits error and stops script if no database
-require_once('../mysqli_connect.php');
+require_once('../php/mysqli_connect.php');
 
 // enter your own info here!!!
-$con=mysqli_connect("localhost","root","4utoHeart","cs183");
+//$con=mysqli_connect("localhost","root","4utoHeart","cs183");
 
 $table = 'info';
 $output = "";
@@ -30,7 +30,7 @@ else
 
 
 // run the query
-$result = mysqli_query($con, $query);
+$result = mysqli_query($dbc, $query);
 
 // concatenate result
 while ($row = $result->fetch_assoc()) {

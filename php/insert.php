@@ -1,20 +1,18 @@
-<html>
-<head>
-<title>Insert></title>
-</head>
-<body>
-
 <?php
-	exec('/usr/bin/perl ./grabline.pl', $result);
+
+	require_once('mysqli_connect.php');
+
+	exec('/usr/bin/perl ../scripts/grabline.pl', $result);
 	$size = sizeof($result);
-	
+	unset($result[0]);
+
 	foreach($result as $res) {
-	//for($i = 0; $i < $size; $i++){
-		echo $result[$i];
+		//for($i = 0; $i < $size; $i++){
+		echo $res;
 		$data_missing = array();
 		$corrected = array();
 
-		if(empty($res){
+		if(empty($res)){
 			$data_missing[] = 'ps info';
 		}
 		else{
@@ -68,7 +66,6 @@
 
 		if(empty($data_missing)){
 
-			require_once('./mysqli_connect.php');
 			//echo "$row<br />";
 			//$now = time();
 			$query = "insert into info (user, pid, cpu, mem, vsz, rss,
@@ -104,7 +101,6 @@
 				echo "error: ". $query . "<br>" . mysqli_error($dbc);
 			}*/
 
-   			mysqli_close($dbc);
    			
 		}
 		else{
@@ -113,7 +109,9 @@
 
 		}
 	}
+	mysqli_close($dbc);	
+
+
+	
 
 ?>
-</body>
-</html>
