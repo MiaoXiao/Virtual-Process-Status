@@ -16,7 +16,7 @@ function removeEventListeners(id)
 // Convert string to array
 function stringToArray(arr)
 {
-	arr = arr.split(" ");
+	arr = arr.split(";");
 	var stringArr = new Array();
 
 	for (var i = 0; i < arr.length; i++) {
@@ -307,7 +307,7 @@ function displayPieChart(cata, user)
 		chart.draw(data, options);
 	}
 }//Display selected line Chart
-function displaylineChart(cata)
+function displayLineChart(cata)
 {
 	document.getElementById("title").innerHTML = cata;
 	var cataArray = document.getElementsByTagName("LI");
@@ -349,15 +349,15 @@ function displaylineChart(cata)
 			}
 		var timeArray = stringToArray(uniqueTimestamps);
 		var infoArray;
-		var infoSum;
+		
 		var infoSize;
 		var infoAvg;
 
 
 		var arg = [];
-		for(var i = 0; i < timeArray.length; i++)
+		for(var i = 0; i < timeArray.length - 1; i++)
 		{
-			xmlhttp.open("GET", "php/getFunc.php?column=" + cata + "&ts=" + timeArray[i], false);
+			xmlhttp.open("GET", "php/getTSinfo.php?column=" + cata + "&ts=" + timeArray[i], false);
 			xmlhttp.send(null);
 		
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -365,16 +365,30 @@ function displaylineChart(cata)
 				info = xmlhttp.response;
 				console.log(info);
 			}
+			var infoSum = 0.0;
 			infoArray = stringToArray(info);
-			infoSize = infoArray.length;
+			infoSize = infoArray.length - 1;
+			var floatSize = parseFloat(infoSize);
 			for(var t = 0; t < infoSize; t++){
-				infoSum += infoArray[t];
+				if(isNaN(infoArray[t])){
+					console.log('value NaN');
+				}
+				else if(isNaN(infoSum)){
+					console.log('infoSum NaN');
+				}
+				else{
+					
+					infoSum += parseFloat(infoArray[t]);	
+					console.log('t: '+ t + 'infoSum is: ' + infoSum + '\n');
+				}
 			}
-			infoAvg = infoSum / infoSize;
+			infoAvg = infoSum / floatSize;
 			arg.push([timeArray[i], infoAvg]);
+			// console.log([timeArray[i], infoAvg]);
+			data.addRows(arg);
 			// arg.push(["PID: " + pidArr[i] + " " + commandAray[i] + " " + userArray[i], parseFloat(cataArray[i])]);
 		}
-		data.addRows(arg);
+		
 
 		//Options for selected pie chart
 		var options = 
@@ -383,7 +397,7 @@ function displaylineChart(cata)
 				title: 'Timestamp'
 			},
 			vAxis: {
-				title: cata
+				title: cata, minValue: 0, maxValue: 0.5
 			}
 
 		};
@@ -401,5 +415,5 @@ function onLoad(cata,user)
 	//dropdownImplementListeners();
     loadCharts();
     displayPieChart(cata,user);
-    displaylineChart(cata);
+    displayLineChart(cata);
 }

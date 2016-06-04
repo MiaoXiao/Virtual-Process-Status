@@ -81,19 +81,19 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li id="cpu" class="cata">
-                        <a onclick="displayPieChart('cpu', 1)"><i class="fa fa-fw fa-bar-chart-o"></i>CPU Usage</a>
+                        <a onclick="displayPieChart('cpu', 1);displayLineChart('cpu');"><i class="fa fa-fw fa-bar-chart-o"></i>CPU Usage</a>
                     </li>
                      <li id="mem">
-                        <a onclick="displayPieChart('mem', 2)"><i class="fa fa-fw fa-bar-chart-o"></i>Memory Usage</a>
+                        <a onclick="displayPieChart('mem', 2);displayLineChart('mem');"><i class="fa fa-fw fa-bar-chart-o"></i>Memory Usage</a>
                     </li>
                     <li id="vsz">
-                        <a onclick="displayPieChart('vsz', 3)"><i class="fa fa-fw fa-bar-chart-o"></i>Virtual Memory Usage</a>
+                        <a onclick="displayPieChart('vsz', 3);displayLineChart('vsz');"><i class="fa fa-fw fa-bar-chart-o"></i>Virtual Memory Usage</a>
                     </li>
                     <li id="rss">
-                       <a onclick="displayPieChart('rss', 1)"><i class="fa fa-fw fa-bar-chart-o"></i>Real Memory Usage</a>
+                       <a onclick="displayPieChart('rss', 1);displayLineChart('rss');"><i class="fa fa-fw fa-bar-chart-o"></i>Real Memory Usage</a>
                     </li>
                     <li id="time">
-                        <a onclick="displayPieChart('time', 1)"><i class="fa fa-fw fa-bar-chart-o"></i>Process Time Alive</a>
+                        <a onclick="displayPieChart('time', 1);displayLineChart('time');"><i class="fa fa-fw fa-bar-chart-o"></i>Process Time Alive</a>
                     </li>
                 </ul>
             </div>

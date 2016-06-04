@@ -11,7 +11,7 @@ $output = "";
 $query = "";
 
 $query = "SELECT * FROM $table
-			WHERE timestamp=$ts";
+			WHERE timestamp='$ts'";
 
 
 // run the query
@@ -19,7 +19,7 @@ $result = mysqli_query($dbc, $query);
 
 // concatenate result
 while ($row = $result->fetch_assoc()) {
-    $output = $output . $row[$column] . " ";
+    $output = $output . $row[$column] . ";";
     //echo $row['pid']."<br>";
 }
 

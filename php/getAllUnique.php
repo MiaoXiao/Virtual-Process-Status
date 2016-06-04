@@ -20,7 +20,7 @@ $result = mysqli_query($dbc, $query);
 
 // concatenate result
 while ($row = $result->fetch_assoc()) {
-    $output = $output . $row[$column] . " ";
+    $output = $output . $row[$column] . ";";
     //echo $row['pid']."<br>";
 }
 
