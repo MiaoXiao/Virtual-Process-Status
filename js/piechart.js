@@ -67,12 +67,24 @@ function loadAllUsersinDropdown()
 	{
 		userDropdown.removeChild(userDropdown.firstChild);
 	}
-	
+
 	//Grab all unique users from database and put in a string separated by spaces
 		//DO THIS ELIZA
+	var xmlhttp = new XMLHttpRequest();
+
+	var uniqueUsers;
+	xmlhttp.open("GET", "php/getAllUnique.php?column=user", false);
+		xmlhttp.send(null);
+		
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				//console.log(xmlhttp.responseText);
+				uniqueUsers = (xmlhttp.responseText);
+				console.log(uniqueUsers);
+			}
+
 		
 	//Test
-	var uniqueUsers = "Rica Alyza Jon Natasha Eliza";
+	// uniqueUsers = "Rica Alyza Jon Natasha Eliza";
 	var userArr = stringToArray(uniqueUsers);
 	userArr.unshift("All Users");
 	
@@ -109,9 +121,21 @@ function loadAllTimeStampsinDropdown()
 	
 	//Grab all unique timestamps from database and put in a string separated by spaces
 		//DO THIS ELIZA
+	var xmlhttp = new XMLHttpRequest();
+
+	var uniqueTimestamps;
+	xmlhttp.open("GET", "php/getAllUnique.php?column=timestamp", false);
+		xmlhttp.send(null);
+		
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				//console.log(xmlhttp.responseText);
+				uniqueTimestamps = (xmlhttp.responseText);
+				console.log(uniqueTimestamps);
+			}
+
 		
 	//Test
-	var uniqueTimestamps = "time1 time2 time3 time4 time5 time6 time7";
+	// uniqueTimestamps = "time1 time2 time3 time4 time5 time6 time7";
 	var timestampArr = stringToArray(uniqueTimestamps);
 	timestampArr.unshift("Most Recent");
 	
@@ -283,7 +307,7 @@ function displayPieChart(cata, user)
 		chart.draw(data, options);
 	}
 }//Display selected line Chart
-function displaylineChart(cata, user)
+function displaylineChart(cata)
 {
 	document.getElementById("title").innerHTML = cata;
 	var cataArray = document.getElementsByTagName("LI");
@@ -298,7 +322,7 @@ function displaylineChart(cata, user)
 	function drawChart() 
 	{
 		var data = new google.visualization.DataTable();
-		data.addColumn('number', 'time');
+		data.addColumn('string', 'timestamp');
 		data.addColumn('number', cata);
 		
 		
@@ -307,64 +331,48 @@ function displaylineChart(cata, user)
 		//var command = getChartData(cata, user);
 		//var user = getChartData(cata, user);
 		
-		
-		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.open("GET", "php/getFunc.php?column=pid", false);
-		xmlhttp.send(null);
-		
-			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				//console.log(xmlhttp.responseText);
-				pid = (xmlhttp.responseText);
-				console.log(pid);
-			}
-		
-		var catagory;
-		xmlhttp.open("GET", "php/getFunc.php?column=" + cata, false);
-		xmlhttp.send(null);
-		
-			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				//console.log(xmlhttp.responseText);
-				catagory = xmlhttp.response;
-				console.log(catagory);
-			}
-
-		var command;
-		xmlhttp.open("GET", "php/getFunc.php?column=command", false);
-		xmlhttp.send(null);
-		
-			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				//console.log(xmlhttp.responseText);
-				command = xmlhttp.response;
-				console.log(command);
-			}
-
-		var user;
-		xmlhttp.open("GET", "php/getFunc.php?column=user", false);
-		xmlhttp.send(null);
-		
-			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				//console.log(xmlhttp.responseText);
-				user = xmlhttp.response;
-				console.log(user);
-			}
-		
-		
-		
 		//TEST DATA
 		//var pid = "1 2 3 4";
 		//var catagory = "0.2 0.4 0.2 0.1";
 		//var command = "chrome darksouls geany spotify";
-		//var user = "rica alyza eliza jon";
+		//var user = "rica alyza eliza jon";		
+		var xmlhttp = new XMLHttpRequest();
+
+		var uniqueTimestamps;
+		xmlhttp.open("GET", "php/getAllUnique.php?column=timestamp", false);
+		xmlhttp.send(null);
 		
-		var pidArr = stringToArray(pid);
-		var cataArray = stringToArray(catagory);
-		var commandAray = stringToArray(command);
-		var userArray = stringToArray(user);
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				//console.log(xmlhttp.responseText);
+				uniqueTimestamps = (xmlhttp.responseText);
+				console.log(uniqueTimestamps);
+			}
+		var timeArray = stringToArray(uniqueTimestamps);
+		var infoArray;
+		var infoSum;
+		var infoSize;
+		var infoAvg;
+
 
 		var arg = [];
-		for(var i = 0; i < pidArr.length; i++)
+		for(var i = 0; i < timeArray.length; i++)
 		{
-			arg.push(["PID: " + pidArr[i] + " " + commandAray[i] + " " + userArray[i], parseFloat(cataArray[i])]);
+			xmlhttp.open("GET", "php/getFunc.php?column=" + cata + "&ts=" + timeArray[i], false);
+			xmlhttp.send(null);
+		
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				//console.log(xmlhttp.responseText);
+				info = xmlhttp.response;
+				console.log(info);
+			}
+			infoArray = stringToArray(info);
+			infoSize = infoArray.length;
+			for(var t = 0; t < infoSize; t++){
+				infoSum += infoArray[t];
+			}
+			infoAvg = infoSum / infoSize;
+			arg.push([timeArray[i], infoAvg]);
+			// arg.push(["PID: " + pidArr[i] + " " + commandAray[i] + " " + userArray[i], parseFloat(cataArray[i])]);
 		}
 		data.addRows(arg);
 
@@ -372,7 +380,7 @@ function displaylineChart(cata, user)
 		var options = 
 		{
 			hAxis: {
-				title: 'Time'
+				title: 'Timestamp'
 			},
 			vAxis: {
 				title: cata
@@ -390,7 +398,8 @@ function onLoad(cata,user)
 {
 	loadAllUsersinDropdown();
 	loadAllTimeStampsinDropdown();
-	dropdownImplementListeners();
+	//dropdownImplementListeners();
     loadCharts();
     displayPieChart(cata,user);
+    displaylineChart(cata);
 }

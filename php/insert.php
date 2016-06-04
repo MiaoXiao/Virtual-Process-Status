@@ -109,9 +109,6 @@
 
 		}
 	}
-	mysqli_close($dbc);	
-
-
-	
+   			mysqli_close($dbc);
 
 ?>
